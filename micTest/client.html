@@ -1,0 +1,25 @@
+
+<html>
+<head>
+    <title>Client</title>
+</head>
+<body>
+    <!--<img src="">
+    <audio src=""></audio>-->
+    <script>
+    // get img dom element
+    const img = document.querySelector('img');
+    //const audio = document.querySelector("audio");
+
+    var audioStream = new Audio();
+    const WS_URL = 'ws://localhost:3001';
+    const ws = new WebSocket(WS_URL);
+    ws.onopen = () => console.log(`Connected to `);
+    ws.onmessage = function(message){
+        console.log(message.data)
+        audioStream.src = message.data;
+        audioStream.play();
+    }
+    </script>
+</body>
+</html>

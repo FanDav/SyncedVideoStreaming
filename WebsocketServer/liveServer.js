@@ -6,46 +6,49 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const port = process.env.PORT || 3000;
 
-var privateKey = fs.readFileSync('whispering-brook-38329_herokuapp_com.key', 'utf8');
-var certificate = fs.readFileSync('whispering-brook-38329_herokuapp_com.csr', 'utf8');
+var privateKey = fs.readFileSync('ssl-cert/whispering-brook-38329_herokuapp_com.key', 'utf8');
+var certificate = fs.readFileSync('ssl-cert/whispering-brook-38329_herokuapp_com.csr', 'utf8');*/
 
-var credentials = { key: privateKey, cert: certificate };
+//var credentials = { key: privateKey, cert: certificate };
 var https = require('https');
 
-var httpsServer = https.createServer(credentials);
-httpsServer.listen(81);
+//var httpsServer = https.createServer(); //credentials);
+//httpsServer.listen(port, () => console.log(`Listening on ${port}`));
 
-var httpsServer2 = https.createServer(credentials);
-httpsServer.listen(82);
+const app = express();
+app.get('', (req, res) => res.sendFile(path.resolve(__dirname, './client.html')));
 
 var maxPing = 0;
 
-//const wsServer = new WebSocket.Server({ port: 82 }, () => console.log('Audio Chat Server listening on port 82'));
-const wsServer = new WebSocket.Server({
-    server: httpsServer2;
-});
+var wsServer;
+//const wsServer = new WebSocket.Server({ port: 3001 }, () => console.log('Audio Chat Server listening on port 82'));
+/*const wsServer = new WebSocket.Server({
+    server: httpsServer2
+});*/
 
 let connectedClients = [];
-
-wsServer.on('connection', (ws, req) => {
-    console.log('Connected user to Audio Chat');
-    connectedClients.push(ws);
-    ws.on('message', data => {
-        connectedClients.forEach((client, i) => {
-            if (client.readyState === client.OPEN) {
-                if(ws!=client)
+if(wsServer){
+    wsServer.on('connection', (ws, req) => {
+        console.log('Connected user to Audio Chat');
+        connectedClients.push(ws);
+        ws.on('message', data => {
+            connectedClients.forEach((client, i) => {
+                if (client.readyState === client.OPEN) {
+                    if(ws!=client)
                     client.send(data);
-            } else {
-                connectedClients.splice(i, 1);
-            }
+                } else {
+                    connectedClients.splice(i, 1);
+                }
+            });
         });
     });
-});
+}
 
 const wss = new WebSocket.Server({
-    server: httpsServer;
-    /*port: 81,
+    //server: httpsServer
+    port: port,
     perMessageDeflate: {
         zlibDeflateOptions: {
             // See zlib defaults.
@@ -64,7 +67,7 @@ const wss = new WebSocket.Server({
         concurrencyLimit: 10, // Limits zlib concurrency for perf.
         threshold: 1024 // Size (in bytes) below which messages
         // should not be compressed.
-    }*/
+    }
 });
 
 var pingIntervals = new Array;

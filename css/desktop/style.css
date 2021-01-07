@@ -1,0 +1,579 @@
+:root {
+    --primaryColor: #222;
+    --secondaryColor: #2c2c2c;
+    --contrastColor: #0b0;
+    --color3: #343434;
+    --color4: #3a3a3a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    user-select: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    background: var(--primaryColor);
+    //border-bottom: 3px solid var(--contrastColor);
+    //color: var(--contrastColor);
+    border-bottom: 3px solid #777;
+    color: #777;
+    font-size: 30px;
+    line-height: 50px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    z-index: 999;
+    user-select: none;
+    transition: all 200ms ease-in-out;
+}
+
+header.connected {
+    border-bottom: 3px solid var(--contrastColor);
+    color: var(--contrastColor);
+}
+
+header.disconnected {
+    border-bottom: 3px solid #c00;
+    color: #c00;
+}
+
+header .hTitle {
+    position: relative;
+    text-decoration: none;
+    margin: 0 50px;
+}
+
+header a:visited {
+    color: inherit;
+}
+
+header a:hover {
+    color: inherit;
+}
+
+header a:focus {
+    color: inherit;
+}
+
+header form {
+    float: left;
+    position: relative;
+    height: 30px;
+    width: 220px;
+    margin: 10px 50px;
+    overflow: hidden;
+    border-radius: 20px;
+    display: block;
+    flex-shrink: 0;
+}
+
+header form input,
+button {
+    float: right;
+    position: relative;
+    height: 20px;
+    border: none;
+    padding: 5px 10px;
+    transition: all 150ms ease-in-out;
+    background: var(--color4);
+    color: var(--contrastColor);
+}
+
+header form input {
+    width: 160px;
+}
+
+header form button[type="submit"] {
+    height: 30px;
+    width: 40px;
+    cursor: pointer;
+    background: var(--color3);
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--secondaryColor);
+    color: #fff;
+    padding: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    float: left;
+    padding: 15px 10px;
+    width: calc(100% - 20px);
+    background: #222;
+    text-align: center;
+    color: #aaa;
+    font-family: verdana;
+}
+
+footer p {
+    display: block;
+    margin: auto;
+    line-height: 20px;
+}
+
+#wrapper {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    float: left;
+    //top: 53px;
+    padding: 78px 50px 75px 50px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: calc(100% - 100px);
+    max-height: calc(100% - 0px);
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/*.elmContainer{
+}*/
+a {
+    float: left;
+    margin: 15px 0;
+    display: block;
+    color: #fff;
+    width: auto;
+    clear: both;
+}
+
+a i {
+    float: left;
+    position: relative;
+    top: -3px;
+    width: auto;
+    height: 20px;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+a[downloading] {
+    text-decoration: none;
+    color: #aaa;
+    user-select: none;
+}
+
+i {
+    float: left;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transform: translateY(3px);
+}
+
+.precPage {
+    float: left;
+    //position: relative;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    padding: 5px;
+    padding-right: 10px;
+    background: #fff3;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    z-index: 1;
+    text-decoration: none;
+    user-select: none;
+}
+
+.precPage i {
+    float: left;
+    position: relative;
+    top: -3px;
+    width: auto;
+    height: 30px;
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+#wrapper span {
+    display: inline-block;
+}
+
+.popUp {
+    position: fixed;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    min-width: 200px;
+    max-width: 90%;
+    transform: translate(-50%, -50%);
+    background: #222;
+    padding: 30px 50px;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+    z-index: 50;
+    text-align: center;
+}
+
+.popUp form {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.popUp h1 {
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.popUp h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.popUp h3 {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+input {
+    float: left;
+    //flex-grow: 1;
+    background: #444;
+    border: none;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+}
+
+input[type="submit"],
+input[type="button"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#videoContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    vertical-align: middle;
+    justify-content: center;
+    background: #0003;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#videoControls {
+    position: absolute;
+    bottom: 0px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    //justify-content: flex-end;
+    background: #0000;
+    opacity: 0;
+    display: none;
+    transition: all 150ms ease-in-out;
+    padding-top: 0;
+    background: #0008;
+}
+
+/*#videoControls::before{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    height: ;
+}*/
+#videoControls.hover {
+    opacity: 1;
+}
+
+#videoControls button {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+    background: #fff;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.fullScreenBtn {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+    background: url("fullscreenIcon.png") !important;
+    background-size: contain !important;
+    background-position: right !important;
+    background-repeat: no-repeat !important;
+    cursor: pointer;
+    z-index: 5;
+}
+
+video::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75px;
+    height: 75px;
+    transform: translate(-50%, -50%);
+    background: #0000;
+    border-top: 2px solid var(--contrastColor);
+    border-bottom: 2px solid var(--contrastColor);
+    border-radius: 50px;
+}
+
+video.noControls::-webkit-media-controls {
+    display: none !important;
+}
+
+video::cue {
+    color: #fff;
+    text-shadow: 0 0 10px #000;
+    background: #fff0;
+}
+
+.optionsPanel {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background: var(--color3);
+    padding: 20px 20px;
+    box-shadow: 0 2px 5px 0 #0004;
+    transition: all 150ms ease-in-out;
+    //justify-content: center;
+    margin: 5px;
+}
+
+.optionsPanel h2 {
+    margin-bottom: 10px;
+}
+
+.optionsPanel:hover {
+    box-shadow: 0 2px 7px 0 #0006;
+}
+
+.optionsContainer {
+    position: relative;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0px 10px;
+    //margin: 0 10px 0 0;
+    overflow: hidden;
+}
+
+.optionsContainer[disabled]::after {
+    content: "DISABLED";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: calc(100% - 0px);
+    background: #222a;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.optionsContainer label,
+.optionsContainer .lineAligner,
+.verticalList .lineAligner {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.optionsContainer label input {
+    margin-left: 10px;
+    background: #444;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    min-width: 200px;
+    transition: all 150ms ease-in-out;
+}
+
+.optionsContainer label input:focus {
+    background: #4b4b4b;
+}
+
+.originalSizeContainer {
+    position: relative;
+    text-align: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 5px;
+    padding: 0px 10px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.originalSizeContainer input[type="button"] {
+    margin-top: 10px;
+}
+
+.optionsPanel h2 {
+    //margin-bottom: 10px;
+}
+
+.verticalList {
+    position: relative;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0px 10px;
+    margin: 10px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.verticalList .lineAligner {
+    margin-bottom: 5px;
+}
+
+.syncedCommands {}
+
+.syncedCommands input {
+    margin: 5px 0px 5px 10px;
+}
+
+.syncedCommands label input {
+    min-width: 10px;
+    max-width: 80px;
+}
+
+.syncedCommands label input[type="button"] {
+    width: 50px;
+}
+
+#clientUsersList {
+    position: fixed;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0006;
+    padding: 25px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#clientUsersList .lineAligner {
+    justify-content: flex-end;
+}
+
+#userList .vidTime {
+    width: 65px;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 7px;
+    border-radius: 5px;
+    //background: #d3d3d3;
+    background: #fff;
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin-left: 10px;
+    padding: 0px
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 1px 1px 3px 0 #0005;
+    //cursor: pointer;
+}
+
+input[type=range]:hover {
+    opacity: 1;
+}
+
+#vidTime {
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+/*@media print {
+    /*html, body {
+       display: none;
+    }
+	video{
+		opacity: 0;
+	}
+}*/

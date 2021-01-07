@@ -1,0 +1,99 @@
+<html>
+<head>
+    <title>Streamer</title>
+</head>
+<body>
+    <script>
+        // get video dom element
+        //const video = document.querySelector('video');
+        //const audio = document.querySelector('audio');
+
+        window.audio = new Audio();
+        var reader = new window.FileReader();
+
+        var base64data;
+        var saveBase64data;
+        reader.onloadend = function() {
+            var fd = new FormData();
+            base64data = reader.result;
+
+            //console.log(base64data);
+
+            /*if(audio.src!="")
+            base64data = base64data.replace("data:audio/webm;codecs=opus;base64,","");
+
+            while(base64data.indexOf("=")>=0)
+            base64data = base64data.replace("=","");
+
+            console.log(base64data);*/
+
+
+        }
+
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+
+        var analyser;
+        function gotStream(stream){
+            const mediaRecorder = new MediaRecorder(stream);
+            var audioContext = new AudioContext();
+
+            // Create an AudioNode from the stream.
+            var mediaStreamSource = audioContext.createMediaStreamSource( stream );
+
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 1024;
+
+            // pipe
+            mediaStreamSource.connect(analyser);
+
+            setInterval(function(){
+                if(analyser){
+                    var data = new Uint8Array(256);
+                    analyser.getByteFrequencyData(data);
+
+                    var volMid = 0;
+
+                    for(var i = 0; i < 256; i++) {volMid+=data[i]}
+
+                    volMid/=i;
+                    volMid = Math.round(volMid);
+
+
+                    if(volMid>22 && saveBase64data!=base64data){
+                        console.log("parlando: " + volMid)
+                        sendDatatoWs(base64data);
+                        //audio.src = base64data;
+                        //audio.play();
+                        saveBase64data = base64data;
+                    }
+                }
+            },50);
+
+            mediaRecorder.start();
+            setInterval(function(){
+                mediaRecorder.stop();
+                mediaRecorder.start();
+                //mediaRecorder.requestData();
+            },200);
+
+            mediaRecorder.ondataavailable = function(e) {
+                reader.readAsDataURL(e.data);
+            }
+
+        }
+
+        function sendDatatoWs(bs64){
+            //if(ws.readyState==ws.OPEN)
+            ws.send(bs64)
+            console.log("data sent")
+        }
+
+        const WS_URL = 'ws://localhost:3001';
+        const ws = new WebSocket(WS_URL);
+        ws.onopen = function(){
+            console.log(`Connected to ${WS_URL}`);
+            navigator.getUserMedia( {audio:true}, gotStream, function(){console.log("Error navigator.getUserMedia")});
+        }
+    </script>
+</body>
+</html>

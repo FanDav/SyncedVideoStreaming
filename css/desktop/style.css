@@ -337,8 +337,9 @@ input[type="button"] {
     width: 100%;
     height: ;
 }*/
-#videoControls.hover {
+#videoContainer:hover > #videoControls{
     opacity: 1;
+    
 }
 
 #videoControls button {

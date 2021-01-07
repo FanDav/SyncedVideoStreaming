@@ -24,8 +24,6 @@ window.onload = function(){
         wrapper.style.width = "calc(100% - 50px)";
         wrapper.style.maxHeight = "calc(100% - " + (document.getElementsByTagName("footer")[0].offsetHeight + document.getElementsByTagName("header")[0].offsetHeight + 50) + "px)";
     }
-
-
 }
 
 window.mobilecheck = function() {
@@ -133,7 +131,7 @@ function appendVideo(url){
         timebar.max = video.duration;
     })
     if(!mobilecheck()){
-        videoContainer.addEventListener("mouseover",function(){
+        /*videoContainer.addEventListener("mouseover",function(){
             if(!video.hasAttribute("controls")){
                 videoControls.classList.add("hover");
             }
@@ -141,7 +139,7 @@ function appendVideo(url){
         videoContainer.addEventListener("mouseout",function(){
             if(!video.hasAttribute("controls"))
             videoControls.classList.remove("hover");
-        });
+        });*/
     }
     videoContainer.addEventListener("click",function(){
         if(!video.hasAttribute("controls")){

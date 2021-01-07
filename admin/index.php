@@ -27,7 +27,7 @@
 
         <div id="wrapper">
             <?php
-                if(!isset($_POST["pwd"]) || $_POST["pwd"]!="dadminkey"){
+                if(!isset($_POST["pwd"]) || $_POST["pwd"]!="passwordFiga"){
                     /*if($_GET["nick"] && campo!="nick"){
                         saveGet.type = "text";
                         saveGet.name = "nick";

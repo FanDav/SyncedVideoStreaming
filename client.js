@@ -2,6 +2,7 @@ const WS_URL = "ws://" + location.hostname;
 //const WS_URL = "wss://radiant-spire-53822.herokuapp.com/";
 //const WS_URL = "ws://jetdave.ddns.net";
 const ENABLE_AUDIO_CHAT = false;
+const DEBUG = false;
 
 var nick;
 var socket;
@@ -109,9 +110,19 @@ function connectWebsockets() {
     if (audioWS)
         audioWS.close();
 
-    socket = new WebSocket(WS_URL + ":81");
-    if (ENABLE_AUDIO_CHAT)
-        audioWS = new WebSocket(WS_URL + ":82");
+    try {
+        socket = new WebSocket(WS_URL + ":81");
+    } catch (error) {
+        if(DEBUG) console.log(error)
+    }
+    
+    if (ENABLE_AUDIO_CHAT){
+        try {
+            audioWS = new WebSocket(WS_URL + ":82");
+        } catch (error) {
+            if(DEBUG) console.log(error)
+        }
+    }
 
     if (socket) {
         socket.onopen = function (e) {
@@ -256,7 +267,7 @@ function connectWebsockets() {
             if (event.wasClean) {
                 console.log("[close] Connection closed cleanly, code=${event.code} reason=${event.reason}");
             } else {
-                console.log("[close] Connection died");
+                if(DEBUG) console.log("[close] Connection died");
 
                 setTimeout(function () {
                     connectWebsockets();
@@ -268,7 +279,7 @@ function connectWebsockets() {
         };
 
         socket.onerror = function (error) {
-            console.log(error);
+            if(DEBUG) console.log(error);
         };
     }
 }

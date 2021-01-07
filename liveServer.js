@@ -1,7 +1,7 @@
 var PING_DELAY = 1; //pnig resolution in ms (milliseconds)
 var PING_INTERVAL = 1; //seconds between every ping
 const ENABLE_AUDIO_CHAT = false;
-const ENABLE_HTML_SERVER = true;
+const ENABLE_HTML_SERVER = false;
 
 const WebSocket = require('ws');
 const path = require('path');
@@ -101,10 +101,6 @@ const wss = new WebSocket.Server({
     //server
 });
 //server.listen(8080);
-
-
-
-
 
 var pingIntervals = new Array;
 var vidUrl;
